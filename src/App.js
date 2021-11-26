@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+
+import Button from './components/Button/Button';
+
 import './App.css';
+import FruitPicker from "./components/FruitPicker/FruitPicker";
 
 function App() {
-
+    //State
     const [ strawberries, setStrawberries ] = useState(0);
     const [ bananas, setBananas ] = useState(0);
     const [ apples, setApples ] = useState(0);
     const [ cherries, setCherries ] = useState(0);
 
+    //Reset State
     const resetValues = () => {
         setStrawberries(0);
         setBananas(0);
@@ -16,11 +21,12 @@ function App() {
         setCherries(0);
     }
 
+    //useForm Hook
     const { register, handleSubmit } = useForm();
 
     const handleFormSubmit = (data) => {
         console.log(data);
-        console.log('Aarbeien: ' + strawberries);
+        console.log('Aardbeien: ' + strawberries);
         console.log('Bananen: ' + bananas);
         console.log('Appels: ' + apples);
         console.log('Kersen: ' + cherries);
@@ -29,89 +35,44 @@ function App() {
   return (
     <main className="main">
         <div className="fruit-pickers">
-            <div className="fruit-box">
-                &#127827;
-                <h4>Aardbeien</h4>
-                <button
-                    type="button"
-                    onClick={() => setStrawberries(strawberries - 1)}
-                    disabled={strawberries <= 0}
-                >
-                    -
-                </button>
-                <p>{strawberries}</p>
-                <button
-                    type="button"
-                    onClick={() => setStrawberries(strawberries + 1)}
-                >
-                    +
-                </button>
-            </div>
+            <FruitPicker
+                fruit="Aardbeien"
+                icon="&#127827;"
+                fruitCount={strawberries}
+                handleCounterMin={() => setStrawberries(strawberries - 1)}
+                handleCounterPlus={() => setStrawberries(strawberries + 1)}
+            />
 
-            <div className="fruit-box">
-                &#127820;
-                <h4>Bananen</h4>
-                <button
-                    type="button"
-                    onClick={() => setBananas(bananas - 1)}
-                    disabled={bananas <= 0}
-                >
-                    -
-                </button>
-                <p>{bananas}</p>
-                <button
-                    type="button"
-                    onClick={() => setBananas(bananas + 1)}
-                >
-                    +
-                </button>
-            </div>
+            <FruitPicker
+                fruit="Bananen"
+                icon="&#127820;"
+                fruitCount={bananas}
+                handleCounterMin={() => setBananas(bananas - 1)}
+                handleCounterPlus={() => setBananas(bananas + 1)}
+            />
 
-            <div className="fruit-box">
-                &#127823;
-                <h4>Appels</h4>
-                <button
-                    type="button"
-                    onClick={() => setApples(apples - 1)}
-                    disabled={apples <= 0}
-                >
-                    -
-                </button>
-                <p>{apples}</p>
-                <button
-                    type="button"
-                    onClick={() => setApples(apples + 1)}
-                >
-                    +
-                </button>
-            </div>
+            <FruitPicker
+                fruit="Appels"
+                icon="&#127823;"
+                fruitCount={apples}
+                handleCounterMin={() => setApples(apples - 1)}
+                handleCounterPlus={() => setApples(apples + 1)}
+            />
 
-            <div className="fruit-box">
-                &#127826;
-                <h4>Kersen</h4>
-                <button
-                    type="button"
-                    onClick={() => setCherries(cherries - 1)}
-                    disabled={cherries <= 0}
-                >
-                    -
-                </button>
-                <p>{cherries}</p>
-                <button
-                    type="button"
-                    onClick={() => setCherries(cherries + 1)}
-                >
-                    +
-                </button>
-            </div>
+            <FruitPicker
+                fruit="Kersen"
+                icon="&#127826;"
+                fruitCount={cherries}
+                handleCounterMin={() => setCherries(cherries - 1)}
+                handleCounterPlus={() => setCherries(cherries + 1)}
+            />
 
-            <button
-                className="reset-btn"
+            <Button
                 type="button"
-                onClick={resetValues}
+                clickHandler={resetValues}
             >
                 Reset
-            </button>
+            </Button>
         </div>
 
 
