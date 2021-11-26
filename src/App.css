@@ -32,7 +32,6 @@
 
 input {
     width: 15px;
-    text-align: center;
 }
 
 .reset-btn {
@@ -50,9 +49,20 @@ input {
 }
 
 .form label {
-    margin: 0.8rem;
+    margin: 0.5rem;
 }
+
 
 .form input {
     width: 10rem;
+}
+
+.terms-label {
+    margin: 0;
+    display: flex;
+}
+
+.submit-btn {
+    width: 30%;
+    padding: 0.5rem 1rem;
 }
