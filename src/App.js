@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 import Button from './components/Button/Button';
+import FruitPicker from "./components/FruitPicker/FruitPicker";
 
 import './App.css';
-import FruitPicker from "./components/FruitPicker/FruitPicker";
+
 
 function App() {
     //State
@@ -22,7 +23,12 @@ function App() {
     }
 
     //useForm Hook
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm({
+        mode: "onTouched",
+        defaultValues: {
+            'time-frame': 'day'
+        }
+    });
 
     const handleFormSubmit = (data) => {
         console.log(data);
@@ -41,6 +47,7 @@ function App() {
                 fruitCount={strawberries}
                 handleCounterMin={() => setStrawberries(strawberries - 1)}
                 handleCounterPlus={() => setStrawberries(strawberries + 1)}
+                color="#C8000B"
             />
 
             <FruitPicker
@@ -49,6 +56,7 @@ function App() {
                 fruitCount={bananas}
                 handleCounterMin={() => setBananas(bananas - 1)}
                 handleCounterPlus={() => setBananas(bananas + 1)}
+                color="#EAA800"
             />
 
             <FruitPicker
@@ -57,6 +65,7 @@ function App() {
                 fruitCount={apples}
                 handleCounterMin={() => setApples(apples - 1)}
                 handleCounterPlus={() => setApples(apples + 1)}
+                color="#418304"
             />
 
             <FruitPicker
@@ -65,6 +74,7 @@ function App() {
                 fruitCount={cherries}
                 handleCounterMin={() => setCherries(cherries - 1)}
                 handleCounterPlus={() => setCherries(cherries + 1)}
+                color="#F10014"
             />
 
             <Button
@@ -85,36 +95,60 @@ function App() {
                     <input
                         type="text"
                         id="firstname-input"
-                        {...register("firstname")}
+                        {...register("firstname", {
+                            minLength: {
+                                value: 2,
+                                message: "Voer minimaal 2 tekens in"
+                            }
+                        })}
                     />
                 </label>
+                {errors.firstname && <p className="error-message">{errors.firstname.message}</p>}
 
                 <label htmlFor="lastname-input">
                     Achternaam: &nbsp;
                     <input
                         type="text"
                         id="lastname-input"
-                        {...register("lastname")}
+                        {...register("lastname", {
+                            minLength: {
+                                value: 2,
+                                message: "Voer minimaal 2 tekens in"
+                            }
+                        })}
                     />
                 </label>
+                {errors.lastname && <p className="error-message">{errors.lastname.message}</p>}
 
                 <label htmlFor="age-input">
                     Leeftijd: &nbsp;
                     <input
                         type="number"
                         id="age-input"
-                        {...register("age")}
+                        {...register("age", {
+                            min: {
+                                value: 18,
+                                message: "U moet 18 jaar zijn om een bestelling te kunnen plaatsen"
+                            }
+                        })}
                     />
                 </label>
+                {errors.age && <p className="error-message">{errors.age.message}</p>}
 
                 <label htmlFor="zipcode-input">
                     Postcode: &nbsp;
                     <input
                         type="text"
                         id="zipcode-input"
-                        {...register("zipcode")}
+                        {...register("zipcode", {
+                            pattern: {
+                                value: /^[1-9][0-9]{3} ?(?!sa|sd|ss)[a-z]{2}$/i,
+                                message: "Voer een geldige postcode in"
+                            }
+                        })}
                     />
                 </label>
+                {errors.zipcode && <p className="error-message">{errors.zipcode.message}</p>}
 
                 <label htmlFor="delivery-input">
                     Bezorgfrequentie: &nbsp;
@@ -126,20 +160,22 @@ function App() {
                     </select>
                 </label>
 
-                <label htmlFor="day" className="radio-button">
+                <label htmlFor="day">
                     <input
                         type="radio"
                         id="day"
-                        {...register("day")}
+                        value="day"
+                        {...register("time-frame")}
                     />
                     Overdag
                 </label>
 
-                <label htmlFor="night" className="radio-button">
+                <label htmlFor="night">
                     <input
                         type="radio"
                         id="night"
-                        {...register("night")}
+                        value="night"
+                        {...register("time-frame")}
                     />
                     's Avonds
                 </label>
@@ -147,23 +183,33 @@ function App() {
                 <label htmlFor="comments">
                     Opmerkingen: &nbsp;
                 </label>
-                <textarea id="comments" cols="30" rows="5" />
+                <textarea
+                    id="comments"
+                    cols="30"
+                    rows="5"
+                    {...register("comments")}
+                />
 
                 <label htmlFor="terms-and-conditions" className="terms-label">
                     <input
                         type="checkbox"
                         id="terms-and-conditions"
+                        {...register("terms-and-conditions", {
+                            required: {
+                                value: true,
+                                message: "U moet akkoord gaan met de algemene voorwaarden"
+                            }
+                        })}
                     />
                     Ik ga akkoord met de voorwaarden
                 </label>
+                {errors['terms-and-conditions'] && <p className="error-message">{errors['terms-and-conditions'].message}</p>}
 
-                <button
-                    className="submit-btn"
+                <Button
                     type="submit"
-
                 >
                     Verzend
-                </button>
+                </Button>
 
             </fieldset>
         </form>

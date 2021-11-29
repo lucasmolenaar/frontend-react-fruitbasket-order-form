@@ -14,14 +14,11 @@
     align-items: center;
 }
 
-input {
-    width: 15px;
-}
-
 .form fieldset {
     width: 400px;
     display: flex;
     flex-direction: column;
+    border: 2px solid black;
 }
 
 .form label {
@@ -29,16 +26,8 @@ input {
 }
 
 
-.form input {
-    width: 10rem;
-}
-
-.terms-label {
-    margin: 0;
-    display: flex;
-}
-
-.submit-btn {
-    width: 30%;
-    padding: 0.5rem 1rem;
+.error-message {
+    font-style: italic;
+    color: red;
+    font-size: .8rem;
 }

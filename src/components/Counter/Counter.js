@@ -1,7 +1,7 @@
 import React from 'react';
 import './Counter.css';
 
-const Counter = ({ isDisabled, count, clickHandlerMin, clickHandlerPlus }) => {
+const Counter = ({ isDisabled, count, clickHandlerMin, clickHandlerPlus, color }) => {
     return (
         <div className="Counter">
             <button
@@ -12,7 +12,7 @@ const Counter = ({ isDisabled, count, clickHandlerMin, clickHandlerPlus }) => {
                 -
             </button>
 
-            <p>{count}</p>
+            <p style={count > 0 ? {color: color} : {color: 'black'}}>{count}</p>
 
             <button
                 type="button"
