@@ -1,0 +1,23 @@
+.fruit-box {
+    margin-top: 2rem;
+    width: 400px;
+    height: 100px;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.fruit-box h4 {
+    margin: 0;
+    flex: 1;
+}
+
+.fruit-icon {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
